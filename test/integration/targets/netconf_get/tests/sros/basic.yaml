@@ -4,6 +4,7 @@
 - name: Get complete configuration data (SROS)
   netconf_get:
     filter: <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf"/>
+    lock: if-supported
   register: result
 
 - assert:
@@ -14,6 +15,7 @@
 - name: Get complete state data (SROS)
   netconf_get:
     filter: <state xmlns="urn:nokia.com:sros:ns:yang:sr:state"/>
+    lock: always
   register: result
 
 - assert:
@@ -25,6 +27,7 @@
   netconf_get:
     source: candidate
     filter: <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf"><service/></configure>
+    lock: always
     display: json
   register: result
 
@@ -44,6 +47,7 @@
 
 - name: Get complete configuration and state data (SROS)
   netconf_get:
+    lock: never
   register: result
 
 - assert:
